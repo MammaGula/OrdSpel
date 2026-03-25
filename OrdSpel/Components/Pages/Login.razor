@@ -26,19 +26,23 @@
         _httpService = httpService;
     }
 
+
+
     private string DisplayBox { get; set; } = string.Empty;
     private string _enteredUsername = string.Empty;
     private string? _enteredPassword = null;
 
+    public LoginDTO LoginDto { get; set; };
+
     public async Task LoginUser()
     {
-        var LoginDTO = new LoginDTO
+        LoginDto = new LoginDTO
         {
             Username = _enteredUsername,
             Password = _enteredPassword!
         };
 
-        var result = await _httpService.Login(LoginDTO);
+        var result = await _httpService.Login(LoginDto);
 
         if (result == null)
         {
