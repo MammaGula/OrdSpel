@@ -45,6 +45,7 @@ using (var scope = app.Services.CreateScope())
     //kategorier
     var appDb = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeededAppData.SeedCategoriesAsync(appDb);
+    await SeededAppData.SeedCountriesAsync(appDb);
 }
 
 app.Run();
