@@ -15,9 +15,9 @@ namespace OrdSpel.DAL.Models
         public string StartWord { get; set; } = string.Empty;
         public int CurrentRound { get; set; }
         public string? CurrentUserId { get; set; }
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; }
 
-
+   
         public ICollection<GamePlayer> Players { get; set; } = new List<GamePlayer>();
         public ICollection<GameTurn> Turns { get; set; } = new List<GameTurn>();
 
