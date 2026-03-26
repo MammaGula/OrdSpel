@@ -13,7 +13,7 @@ namespace OrdSpel.DAL.Models
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
         public string StartWord { get; set; } = string.Empty;
-        public int CurrentRoud { get; set; }
+        public int CurrentRound { get; set; }
         public string? CurrentUserId { get; set; }
         public DateTime CreatedAt { get; set; }
 
