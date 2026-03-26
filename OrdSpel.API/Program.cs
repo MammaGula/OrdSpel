@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using OrdSpel.API.Services;
 using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
+using OrdSpel.DAL.Data.SeededData;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,5 +54,11 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+using (var scope = app.Services.CreateScope())
+{
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<IdentityUser>>();
+    await SeededUserData.SeedUserAsync(userManager);
+}
 
 app.Run();

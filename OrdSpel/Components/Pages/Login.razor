@@ -12,9 +12,9 @@
 <div class="mb-3">
 
     <form method="post">
-        <label @bind-Value="DisplayBox" type="text"></label>
-        <Input @bind-Value="@_enteredUsername" type="text" placeholder="Användarnamn"/>
-        <PasswordInput @bind-Value="@_enteredPassword" type="text" placeholder="Användarnamn"/>
+        <label>@DisplayBox</label>
+        <input @bind="_enteredUsername" type="text" placeholder="Användarnamn"/>
+        <input @bind="_enteredPassword" type="password" placeholder="Lösenord"/>
         <button type="submit">Logga in</button>
     </form>
 
