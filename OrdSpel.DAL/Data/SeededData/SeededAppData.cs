@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,7 +11,7 @@ namespace OrdSpel.DAL.Data.SeededData
         public static async Task SeedCategoriesAsync(AppDbContext context)
         {
             //lägg till kategorier i listan efterhand
-            var categoryName = new List<string> { "Länder" };
+            var categoryName = new List<string> { "Länder", "Djur" };
 
             //om det inte finns en category med ett namn från listan ovan, skapa:
             foreach (var name in categoryName)
@@ -228,13 +229,221 @@ namespace OrdSpel.DAL.Data.SeededData
 "Zimbabwe"
             };
 
-            foreach(var country in countries)
+            foreach (var country in countries)
             {
                 if (!context.Words.Any(w => w.Text.ToLower() == country && w.CategoryId == category.Id))
                 {
                     context.Words.Add(new Models.Word
                     {
                         Text = country.ToLower(),
+                        CategoryId = category.Id,
+                        IsHard = false
+                    });
+                }
+            }
+
+            await context.SaveChangesAsync();
+        }
+
+        public static async Task SeedAnimalsAsync(AppDbContext context)
+        {
+            //hitta kategorin
+            var category = context.Categories.FirstOrDefault(c => c.Name == "Djur");
+
+            //om kategorin inte finns, avbryt
+            if (category == null)
+            {
+                return;
+            }
+
+            var animals = new List<string>
+            {
+                "abborre",
+"addax",
+"alpacka",
+"albatross",
+"antilop",
+"apa",
+"armadillo",
+"asp",
+"bagge",
+"bäver",
+"bi",
+"bläckfisk",
+"blomfluga",
+"bison",
+"björn",
+"blåmes",
+"brungås",
+"berguv",
+"chinchilla",
+"cikada",
+"dammsnäcka",
+"delfin",
+"dromedar",
+"dugong",
+"duva",
+"echidna",
+"ejder",
+"ekorre",
+"elefant",
+"emu",
+"falk",
+"fasan",
+"fink",
+"fjäril",
+"fladdermus",
+"flamingo",
+"fluga",
+"flodhäst",
+"fisk",
+"fiskmås",
+"gädda",
+"gås",
+"gepard",
+"get",
+"geting",
+"giraff",
+"gris",
+"gråsäl",
+"grävling",
+"grönfink",
+"hackspett",
+"hamster",
+"havsörn",
+"höna",
+"haj",
+"hermelin",
+"hund",
+"häst",
+"hyena",
+"hörnuggla",
+"ibis",
+"igelkott",
+"iller",
+"isfågel",
+"isbjörn",
+"järv",
+"jaguar",
+"jorduggla",
+"kaja",
+"kamel",
+"kalkon",
+"kanin",
+"känguru",
+"kanadagås",
+"katt",
+"kolibri",
+"koltrast",
+"kobra",
+"ko",
+"kopparödla",
+"korp",
+"krabba",
+"krokodil",
+"kungsörn",
+"lama",
+"lejon",
+"lemmel",
+"leopard",
+"lodjur",
+"lax",
+"lärka",
+"långörad uggla",
+"lunnefågel",
+"makrill",
+"mal",
+"manet",
+"mård",
+"mink",
+"mus",
+"myskoxe",
+"mygg",
+"myra",
+"mullvad",
+"mås",
+"noshörning",
+"näbbmus",
+"näktergal",
+"näbbval",
+"nötskrika",
+"oxe",
+"orangutang",
+"orm",
+"ormvråk",
+"panda",
+"papegoja",
+"pelikan",
+"pingvin",
+"piraya",
+"prärievarg",
+"påfågel",
+"puma",
+"rådjur",
+"råtta",
+"ren",
+"ripa",
+"rocka",
+"rödhake",
+"regnbågsöring",
+"säl",
+"sandödla",
+"skarv",
+"skata",
+"sköldpadda",
+"snok",
+"sengångare",
+"sjöhäst",
+"sjölejon",
+"svala",
+"spindel",
+"spindelkrabba",
+"struts",
+"stork",
+"svan",
+"surikat",
+"talgoxe",
+"tallbit",
+"tapir",
+"tasmansk djävul",
+"tiger",
+"tigerhaj",
+"tjäder",
+"tonfisk",
+"torsk",
+"trana",
+"trollslända",
+"tukan",
+"tumlare",
+"tupp",
+"uggla",
+"undulat",
+"uer",
+"utter",
+"varg",
+"val",
+"valross",
+"varan",
+"vessla",
+"vildand",
+"vildsvin",
+"zebra",
+"älg",
+"ängspiplärka",
+"ängshök",
+"örn",
+"ödla",
+"öring",
+"ökenräv",
+            };
+
+            foreach (var animal in animals)
+            {
+                if (!context.Words.Any(w => w.Text.ToLower() == animal && w.CategoryId == category.Id))
+                {
+                    context.Words.Add(new Models.Word
+                    {
+                        Text = animal.ToLower(),
                         CategoryId = category.Id,
                         IsHard = false
                     });

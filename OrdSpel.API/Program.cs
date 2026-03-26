@@ -46,6 +46,7 @@ using (var scope = app.Services.CreateScope())
     var appDb = scope.ServiceProvider.GetRequiredService<AppDbContext>();
     await SeededAppData.SeedCategoriesAsync(appDb);
     await SeededAppData.SeedCountriesAsync(appDb);
+    await SeededAppData.SeedAnimalsAsync(appDb);
 }
 
 app.Run();
