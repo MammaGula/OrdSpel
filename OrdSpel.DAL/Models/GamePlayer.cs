@@ -13,5 +13,6 @@ namespace OrdSpel.DAL.Models
         public int PlayerOrder { get; set; } // 1 or 2
         public int TotalScore { get; set; } = 0;
 
+
     }
 }

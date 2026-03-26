@@ -15,5 +15,6 @@ namespace OrdSpel.DAL.Models
         public int Score { get; set; }
         public bool PassedTurn { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+
     }
 }
