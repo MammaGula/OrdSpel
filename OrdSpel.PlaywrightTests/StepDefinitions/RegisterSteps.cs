@@ -16,15 +16,15 @@ namespace OrdSpel.PlaywrightTests.StepDefinitions
         [Given("I am on the register page")]
         public async Task GivenIAmOnTheRegisterPage()
         {
-            await _page.GotoAsync("https://localhost:PORT/register"); //Byt ut!!!
+            await _page.GotoAsync("https://localhost:7265/register");
         }
 
         [When("I fill in username {string} and password {string} and confirm the password")]
         public async Task WhenIFillInUsernameAndPassword(string username, string password)
         {
-            await _page.FillAsync("input[type='text']", username);
-            await _page.FillAsync("input[type='password']", password);
-            await _page.FillAsync("input[type='password']:nth-of-type(2)", password);
+            await _page.FillAsync("input:not([type='password']):not([type='hidden'])", username);
+            await _page.Locator("input[type='password']").Nth(0).FillAsync(password);
+            await _page.Locator("input[type='password']").Nth(1).FillAsync(password);
             await _page.ClickAsync("button[type='submit']");
         }
 

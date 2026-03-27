@@ -1,5 +1,4 @@
 using OrdSpel.UI.Components;
-using OrdSpel.UI.Components;
 using OrdSpel.UI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-builder.Services.AddHttpClient<HttpService>();
+builder.Services.AddHttpClient<HttpService>(client =>
+{
+    client.BaseAddress = new Uri("https://localhost:7099"); // API:ets port
+});
 
 var app = builder.Build();
 

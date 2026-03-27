@@ -13,7 +13,7 @@ using System.Text;
 
 namespace OrdSpel.BLL.Services
 {
-    public class AuthService
+    public class AuthService : IAuthService
     {
         private readonly UserManager<IdentityUser> _userManager;
 
