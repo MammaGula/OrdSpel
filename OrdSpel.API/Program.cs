@@ -11,17 +11,33 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+
+// CORS – tillåt anrop från UI:t
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowUI", policy =>
+        policy.WithOrigins("https://localhost:7265", "http://localhost:5235")
+              .AllowAnyHeader()
+              .AllowAnyMethod());
+});
+
 builder.Services.AddDbContext<AppDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("AppDbConnection")));
 builder.Services.AddDbContext<AuthDbContext>(Options => Options.UseSqlServer(builder.Configuration.GetConnectionString("AuthDbConnection")));
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = false;
+    options.Password.RequiredLength = 3;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+})
     .AddEntityFrameworkStores<AuthDbContext>()
     .AddDefaultTokenProviders();
 
 builder.Services.AddScoped<JwtService>();
-builder.Services.AddScoped<AuthService>();
+// Registrerat via interface så MockAuthService enkelt kan bytas in vid testning
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 builder.Services.AddAuthentication(options =>
 {
@@ -43,11 +59,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-
+app.UseCors("AllowUI");
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
