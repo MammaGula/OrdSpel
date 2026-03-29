@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace OrdSpel.BLL.Services
 {
+    // This Service is for retrieving the game lobby status from the database
+    // and mapping it to a GameLobbyStatusDto to be returned for API/UI consumption
+
     public class GameLobbyService : IGameLobbyService
     {
         private readonly AppDbContext _context;
@@ -15,13 +18,15 @@ namespace OrdSpel.BLL.Services
             _context = context;
         }
 
+        // Retrieves the game lobby status for a given game code
         public async Task<GameLobbyStatusDto?> GetLobbyStatusAsync(string gameCode)
         {
             if (string.IsNullOrWhiteSpace(gameCode))
             {
                 return null;
             }
-
+            // Query the database for the game session with the specified game code,
+            // including related category and players
             var session = await _context.GameSessions
                 .Include(s => s.Category)
                 .Include(s => s.Players)
@@ -32,6 +37,7 @@ namespace OrdSpel.BLL.Services
                 return null;
             }
 
+            // Map the retrieved game session to a GameLobbyStatusDto
             return new GameLobbyStatusDto
             {
                 SessionId = session.Id,
