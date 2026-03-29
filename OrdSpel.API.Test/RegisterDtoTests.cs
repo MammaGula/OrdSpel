@@ -1,0 +1,63 @@
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using OrdSpel.Shared.UserDTOs;
+using Xunit;
+
+namespace OrdSpel.API.Test
+{
+    public class RegisterDtoTests
+    {
+        private IList<ValidationResult> ValidateDto(RegisterDto dto)
+        {
+            var results = new List<ValidationResult>();
+            var context = new ValidationContext(dto);
+            Validator.TryValidateObject(dto, context, results, true);
+            return results;
+        }
+
+        [Fact]
+        public void Register_WithValidData_ShouldPassValidation()
+        {
+            var dto = new RegisterDto
+            {
+                Username = "testuser",
+                Password = "Test123!",
+                ConfirmPassword = "Test123!"
+            };
+
+            var results = ValidateDto(dto);
+
+            Assert.Empty(results);
+        }
+
+        [Fact]
+        public void Register_WithEmptyUsername_ShouldFailValidation()
+        {
+            var dto = new RegisterDto
+            {
+                Username = "",
+                Password = "Test123!",
+                ConfirmPassword = "Test123!"
+            };
+
+            var results = ValidateDto(dto);
+
+            Assert.NotEmpty(results);
+        }
+
+        [Fact]
+        public void Register_WithMismatchedPasswords_ShouldFailValidation()
+        {
+            var dto = new RegisterDto
+            {
+                Username = "testuser",
+                Password = "Test123!",
+                ConfirmPassword = "WrongPassword!"
+            };
+
+            var results = ValidateDto(dto);
+
+            Assert.NotEmpty(results);
+        }
+    }
+}

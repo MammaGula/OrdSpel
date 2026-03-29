@@ -15,11 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\OrdSpel.API\OrdSpel.API.csproj" />
+    <ProjectReference Include="..\OrdSpel.Shared\OrdSpel.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OrdSpel.DAL\OrdSpel.DAL.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
 </Project>
