@@ -9,7 +9,7 @@ namespace OrdSpel.DAL.Models
     {
         public int Id { get; set; }
         public string GameCode { get; set; } = string.Empty;
-        public GameStatus Status { get; set; } = GameStatus.Waiting;
+        public GameStatus Status { get; set; } = GameStatus.WaitingForPlayers;
         public int CategoryId { get; set; }
         public Category Category { get; set; } = null!;
         public string StartWord { get; set; } = string.Empty;

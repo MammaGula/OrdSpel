@@ -8,6 +8,7 @@ using OrdSpel.DAL.Data;
 using OrdSpel.DAL.Data.SeededData;
 using System.Text;
 
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -39,6 +40,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddScoped<JwtService>();
 // Registrerat via interface så MockAuthService enkelt kan bytas in vid testning
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IGameLobbyService, GameLobbyService>();
 
 builder.Services.AddAuthentication(options =>
 {

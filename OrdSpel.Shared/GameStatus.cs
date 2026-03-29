@@ -9,7 +9,7 @@ namespace OrdSpel.Shared
         WaitingForPlayers = 0,
         InProgress = 1,
         GameFinished = 2,
-        Waiting = 3
+       
     }
 
 
