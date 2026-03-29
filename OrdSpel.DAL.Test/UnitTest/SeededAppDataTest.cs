@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace OrdSpel.DAL.Test
+namespace OrdSpel.DAL.Test.XUnit
 {
     public class SeededAppDataTest
     {

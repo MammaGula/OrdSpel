@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using Assert = Xunit.Assert;
 
 namespace OrdSpel.PlaywrightTests.StepDefinitions
 {
@@ -46,13 +47,13 @@ namespace OrdSpel.PlaywrightTests.StepDefinitions
         [Then("the database should contain {int} categories")]
         public void ThenShouldContainCategories(int count)
         {
-            Assert.That(context.Categories.Count(), Is.EqualTo(count));
+            Assert.Equal(count, context.Categories.Count());
         }
 
         [Then("the database should contain at least {int} words")]
         public void ThenShouldContainWords(int words)
         {
-            Assert.That(context.Words.Count() >= words);
+            Assert.True(context.Words.Count() >= words);
         }
     }
 }

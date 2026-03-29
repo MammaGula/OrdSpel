@@ -25,6 +25,12 @@ namespace OrdSpel.API.Controllers
         [HttpGet("{id}/words")] //endpoint för att hämta orden i en specifik category
         public async Task<IActionResult> GetCategoriesContent(int id)
         {
+            var category = await _context.Categories.FindAsync(id);
+            if (category == null)
+            {
+                return NotFound($"Kategorin finns inte");
+            }
+
             var words = await _context.Words.Where(w => w.CategoryId == id).ToListAsync();
 
             return Ok(words);
