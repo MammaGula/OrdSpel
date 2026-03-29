@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrdSpel.API.Services;
 using OrdSpel.BLL.Services;
-using OrdSpel.Shared.UserDTOs;
+using OrdSpel.Shared.AuthDTOs;
+using System.Security.Claims;
 
 namespace OrdSpel.API.Controllers
 {
+    
     [ApiController]
     [Route("api/auth")]
     public class AuthController : ControllerBase
@@ -41,6 +43,16 @@ namespace OrdSpel.API.Controllers
                 return BadRequest("Något gick fel vid registrering.");
 
             return Ok(new { token });
+        }
+
+        [Authorize]
+        [HttpGet("me")]
+        public IActionResult Me()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var username = User.FindFirst(ClaimTypes.Name)?.Value;
+
+            return Ok(new { userId, username });
         }
     }
 }

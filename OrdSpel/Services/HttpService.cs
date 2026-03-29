@@ -1,6 +1,6 @@
 ﻿using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
-using OrdSpel.Shared.UserDTOs;
+using OrdSpel.Shared.AuthDTOs;
 
 namespace OrdSpel.UI.Services
 {
@@ -14,19 +14,20 @@ namespace OrdSpel.UI.Services
         }
 
 
-        public async Task<ActionResult> LoginUser(LoginDto loginDto)
+        public async Task<AuthResult> LoginUser(LoginDto loginDto)
         {
             var response = await _httpClient.PostAsJsonAsync("api/auth/login", loginDto);
 
-            if (!response.IsSuccessStatusCode)
-                return new UnauthorizedResult();
+            if (response.IsSuccessStatusCode)
+            {
 
-            var result = await response.Content.ReadFromJsonAsync<TokenResponse>();
+                var result = await response.Content.ReadFromJsonAsync<TokenResponse>();
+                return new AuthResult { Success = true, Token = result?.Token };
+            }
 
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", result!.Token);
+            var errorMessage = await response.Content.ReadAsStringAsync();
 
-            return new OkResult();
+            return new AuthResult { Success = false, ErrorMessage = errorMessage };
         }
 
         public async Task<AuthResult> RegisterUser(RegisterDto dto)
@@ -39,7 +40,9 @@ namespace OrdSpel.UI.Services
                 return new AuthResult { Success = true, Token = result?.Token }; //Returnerar AuthResult-modell (medell i UI:t!)
             }
 
-            return new AuthResult { Success = false, ErrorMessage = "Något gick fel." };
+            var errorMessage = await response.Content.ReadAsStringAsync();
+
+            return new AuthResult { Success = false, ErrorMessage = errorMessage };
         }
 
     }

@@ -65,7 +65,25 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
+// Global felhanterare för bubblande fel från backend
+app.UseExceptionHandler(errorApp =>
+{
+    errorApp.Run(async context =>
+    {
+        context.Response.StatusCode = 500;
+        context.Response.ContentType = "application/json";
+
+        await context.Response.WriteAsync("""
+    {
+        "message": "Internal server error"
+    }
+    """);
+    });
+});
 
 // Configure the HTTP request pipeline.
 app.UseCors("AllowUI");
