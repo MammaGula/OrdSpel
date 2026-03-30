@@ -1,5 +1,4 @@
 ﻿using System.Net.Http.Headers;
-using Microsoft.AspNetCore.Mvc;
 using OrdSpel.Shared.AuthDTOs;
 
 namespace OrdSpel.UI.Services
@@ -11,6 +10,12 @@ namespace OrdSpel.UI.Services
         public HttpService(HttpClient httpClient)
         {
             _httpClient = httpClient;
+        }
+
+        public void SetBearerToken(string token)
+        {
+            _httpClient.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", token);
         }
 
 

@@ -21,6 +21,7 @@ namespace OrdSpel.API.Controllers
             _jwtService = jwtService;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
         public async Task<IActionResult> Login(LoginDto dto)
         {
@@ -31,18 +32,20 @@ namespace OrdSpel.API.Controllers
             return Ok(new TokenResponse { Token = token });
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] RegisterDto dto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var token = await _authService.RegisterAsync(dto);
+            var user = await _authService.RegisterAsync(dto);
 
-            if (token == null)
+            if (user == null)
                 return BadRequest("Något gick fel vid registrering.");
 
-            return Ok(new { token });
+            var token = _jwtService.GenerateToken(user);
+            return Ok(new TokenResponse { Token = token });
         }
 
         [Authorize]
