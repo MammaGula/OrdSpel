@@ -12,6 +12,8 @@ builder.Services.AddHttpClient<HttpService>(options =>
     options.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
 });
 
+builder.Services.AddScoped<AppState>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
