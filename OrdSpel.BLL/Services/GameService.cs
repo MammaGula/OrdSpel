@@ -24,19 +24,24 @@ namespace OrdSpel.BLL.Services
             return await _gameRepository.CreateSessionAsync(code, dto.CategoryId, startWord, userId);
         }
 
-        public async Task<GameSessionResponseDto?> JoinGameAsync(JoinGameDto dto, string userId)
+        public async Task<ServiceResult<GameSessionResponseDto>> JoinGameAsync(JoinGameDto dto, string userId)
         {
             var session = await _gameRepository.GetSessionByCodeAsync(dto.GameCode);
 
-            if (session == null) return null;
-            if (session.Status != GameStatus.Waiting) return null;
-            if (session.PlayerIds.Contains(userId)) return null;
-            if (session.PlayerIds.Count >= 2) return null;
+            if (session == null)
+                return ServiceResult<GameSessionResponseDto>.Fail("Spelet hittades inte.");
+            if (session.PlayerIds.Contains(userId))
+                return ServiceResult<GameSessionResponseDto>.Fail("Du är redan med i det här spelet.");
+            if (session.PlayerIds.Count >= 2)
+                return ServiceResult<GameSessionResponseDto>.Fail("Spelet är fullt.");
+            if (session.Status != GameStatus.Waiting)
+                return ServiceResult<GameSessionResponseDto>.Fail("Spelet har redan startat.");
 
             await _gameRepository.AddPlayerAsync(dto.GameCode, userId, 2);
             await _gameRepository.SetSessionActiveAsync(dto.GameCode);
 
-            return await _gameRepository.GetSessionByCodeAsync(dto.GameCode);
+            var updated = await _gameRepository.GetSessionByCodeAsync(dto.GameCode);
+            return ServiceResult<GameSessionResponseDto>.Ok(updated!);
         }
 
         public async Task<GameSessionResponseDto?> GetGameAsync(string gameCode)

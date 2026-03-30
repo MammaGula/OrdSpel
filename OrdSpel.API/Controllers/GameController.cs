@@ -43,10 +43,10 @@ namespace OrdSpel.API.Controllers
                 return Unauthorized();
 
             var result = await _gameService.JoinGameAsync(dto, userId);
-            if (result == null)
-                return BadRequest("Spelet hittades inte, är fullt eller har redan startat.");
+            if (!result.Success)
+                return BadRequest(result.Error);
 
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         [HttpGet("{gameCode}")]
