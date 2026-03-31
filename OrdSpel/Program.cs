@@ -14,9 +14,9 @@ builder.Services.AddHttpClient<HttpService>(options =>
 
 builder.Services.AddScoped<AppState>();
 
-builder.Services.AddHttpClient<GameService>(options =>
+builder.Services.AddHttpClient<GameService>((sp, options) =>
 {
-    options.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
+    options.BaseAddress = new Uri(builder.Configuration["ConnectionStrings:ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
 });
 
 builder.Services.AddScoped<AuthStateService>();

@@ -24,6 +24,13 @@ namespace OrdSpel.DAL.Data.SeededData
                 await userManager.CreateAsync(user, "123");
             }
 
+            // Dedikerad testanvändare för Playwright-tester
+            if (await userManager.FindByNameAsync("playwright_user") == null)
+            {
+                var user = new IdentityUser { UserName = "playwright_user", EmailConfirmed = true };
+                await userManager.CreateAsync(user, "Test123!");
+            }
+
         }
     }
 }

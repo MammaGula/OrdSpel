@@ -6,18 +6,18 @@ namespace OrdSpel.UI.Services
     public class GameService
     {
         private readonly HttpClient _httpClient;
-        private readonly AppState _appState;
+        private readonly AuthStateService _authState;
 
-        public GameService(HttpClient httpClient, AppState appState)
+        public GameService(HttpClient httpClient, AuthStateService authState)
         {
             _httpClient = httpClient;
-            _appState = appState;
+            _authState = authState;
         }
 
         private void SetAuthHeader()
         {
             _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", _appState.Token);
+                new AuthenticationHeaderValue("Bearer", _authState.Token);
         }
 
         // OBS: Stäm av  när kategori-feature är pushad — säkerställ att hela

@@ -49,6 +49,20 @@ namespace OrdSpel.API.Controllers
             return Ok(result.Data);
         }
 
+        [HttpPut("end/{gameCode}")]
+        public async Task<IActionResult> EndGame(string gameCode)
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null)
+                return Unauthorized();
+
+            var result = await _gameService.EndGameAsync(gameCode, userId);
+            if (!result.Success)
+                return BadRequest(result.Error);
+
+            return Ok(result.Data);
+        }
+
         [HttpGet("{gameCode}")]
         public async Task<IActionResult> GetGame(string gameCode)
         {

@@ -3,27 +3,28 @@
 
 @inject GameService GameService
 @inject NavigationManager NavigationManager
+@inject IJSRuntime JS
 
 <div>
     <h3>Skapa spel</h3>
 
-    <select @bind="_categoryId">
+    <select id="categorySelect" @bind="_categoryId">
         <option value="0">Välj kategori...</option>
         @foreach (var category in _categories)
         {
             <option value="@category.Id">@category.Name</option>
         }
     </select>
-    <button @onclick="CreateGame">Skapa</button>
+    <button id="createGameButton" @onclick="CreateGame">Skapa</button>
 
     @if (!string.IsNullOrEmpty(_createError))
     {
-        <p>@_createError</p>
+        <p id="createError">@_createError</p>
     }
 
     @if (_createdSession != null)
     {
-        <p>Spelet skapat! Spelkod: <strong>@_createdSession.GameCode</strong></p>
+        <p>Spelet skapat! Spelkod: <strong id="gameCode">@_createdSession.GameCode</strong></p>
     }
 </div>
 
@@ -32,12 +33,12 @@
 <div>
     <h3>Joina spel</h3>
 
-    <input @bind="_joinCode" type="text" placeholder="Spelkod" maxlength="6" />
-    <button @onclick="JoinGame">Anslut</button>
+    <input id="gameCodeInput" @bind="_joinCode" type="text" placeholder="Spelkod" maxlength="6" />
+    <button id="joinGameButton" @onclick="JoinGame">Anslut</button>
 
     @if (!string.IsNullOrEmpty(_joinError))
     {
-        <p>@_joinError</p>
+        <p id="joinError">@_joinError</p>
     }
 </div>
 
@@ -60,6 +61,12 @@
     protected override async Task OnInitializedAsync()
     {
         _categories = await GameService.GetCategoriesAsync<CategoryModel>();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JS.InvokeVoidAsync("eval", "document.body.setAttribute('blazor-ready', 'true')");
     }
 
     private async Task CreateGame()

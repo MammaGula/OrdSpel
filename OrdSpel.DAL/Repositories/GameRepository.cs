@@ -46,7 +46,7 @@ namespace OrdSpel.DAL.Repositories
                 GameCode = code,
                 CategoryId = categoryId,
                 StartWord = startWord,
-                Status = GameStatus.Waiting,
+                Status = GameStatus.WaitingForPlayers,
                 CurrentRound = 0,
                 CreatedAt = DateTime.UtcNow
             };
@@ -93,7 +93,18 @@ namespace OrdSpel.DAL.Repositories
 
             if (session == null) return;
 
-            session.Status = GameStatus.Active;
+            session.Status = GameStatus.InProgress;
+            await _db.SaveChangesAsync();
+        }
+
+        public async Task SetSessionFinishedAsync(string gameCode)
+        {
+            var session = await _db.GameSessions
+                .FirstOrDefaultAsync(s => s.GameCode == gameCode);
+
+            if (session == null) return;
+
+            session.Status = GameStatus.GameFinished;
             await _db.SaveChangesAsync();
         }
 

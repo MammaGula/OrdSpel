@@ -34,13 +34,30 @@ namespace OrdSpel.BLL.Services
                 return ServiceResult<GameSessionResponseDto>.Fail("Du är redan med i det här spelet.");
             if (session.PlayerIds.Count >= 2)
                 return ServiceResult<GameSessionResponseDto>.Fail("Spelet är fullt.");
-            if (session.Status != GameStatus.Waiting)
+            if (session.Status != GameStatus.WaitingForPlayers)
                 return ServiceResult<GameSessionResponseDto>.Fail("Spelet har redan startat.");
 
             await _gameRepository.AddPlayerAsync(dto.GameCode, userId, 2);
             await _gameRepository.SetSessionActiveAsync(dto.GameCode);
 
             var updated = await _gameRepository.GetSessionByCodeAsync(dto.GameCode);
+            return ServiceResult<GameSessionResponseDto>.Ok(updated!);
+        }
+
+        public async Task<ServiceResult<GameSessionResponseDto>> EndGameAsync(string gameCode, string userId)
+        {
+            var session = await _gameRepository.GetSessionByCodeAsync(gameCode);
+
+            if (session == null)
+                return ServiceResult<GameSessionResponseDto>.Fail("Spelet hittades inte.");
+            if (!session.PlayerIds.Contains(userId))
+                return ServiceResult<GameSessionResponseDto>.Fail("Du är inte med i det här spelet.");
+            if (session.Status == GameStatus.GameFinished)
+                return ServiceResult<GameSessionResponseDto>.Fail("Spelet är redan avslutat.");
+
+            await _gameRepository.SetSessionFinishedAsync(gameCode);
+
+            var updated = await _gameRepository.GetSessionByCodeAsync(gameCode);
             return ServiceResult<GameSessionResponseDto>.Ok(updated!);
         }
 

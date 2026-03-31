@@ -19,7 +19,8 @@ namespace OrdSpel.PlaywrightTests.Helpers
 
         public async Task LoginAsync(string username, string password)
         {
-            await _page.GotoAsync(_baseUrl + "game");
+            await _page.GotoAsync(_baseUrl);
+            await _page.WaitForSelectorAsync("#username");
             await _page.FillAsync("#username", username);
             await _page.FillAsync("#password", password);
             await Task.WhenAll(
