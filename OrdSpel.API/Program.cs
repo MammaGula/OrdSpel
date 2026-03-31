@@ -6,6 +6,8 @@ using OrdSpel.API.Services;
 using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
 using OrdSpel.DAL.Data.SeededData;
+using OrdSpel.DAL.Repositories;
+using OrdSpel.DAL.Repositories.Interfaces;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -39,6 +41,9 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(options =>
 builder.Services.AddScoped<JwtService>();
 // Registrerat via interface så MockAuthService enkelt kan bytas in vid testning
 builder.Services.AddScoped<IAuthService, AuthService>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
 
 builder.Services.AddAuthentication(options =>
 {
