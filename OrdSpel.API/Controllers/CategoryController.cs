@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
+using OrdSpel.DAL.Repositories;
 
 namespace OrdSpel.API.Controllers
 {
@@ -8,30 +10,28 @@ namespace OrdSpel.API.Controllers
     [Route("api/[controller]")]
     public class CategoryController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly ICategoryService _categoryService;
 
-        public CategoryController(AppDbContext context)
+        public CategoryController(ICategoryService categoryService)
         {
-            _context = context;
+            _categoryService = categoryService;
         }
 
-        [HttpGet] //enpoint för att hämta categories
+        [HttpGet] //endpoint för att hämta categories
         public async Task<IActionResult> GetCategories()
         {
-            var categories = await _context.Categories.ToListAsync();
+            var categories = await _categoryService.GetAllAsync();
             return Ok(categories);
         }
 
         [HttpGet("{id}/words")] //endpoint för att hämta orden i en specifik category
         public async Task<IActionResult> GetCategoriesContent(int id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            if (category == null)
+            var words = await _categoryService.GetWordsByCategoryIdAsync(id);
+            if (words == null || !words.Any())
             {
-                return NotFound($"Kategorin finns inte");
+                return NotFound("Kategorin finns inte");
             }
-
-            var words = await _context.Words.Where(w => w.CategoryId == id).ToListAsync();
 
             return Ok(words);
         }
