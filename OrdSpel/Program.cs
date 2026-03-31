@@ -9,7 +9,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpClient<HttpService>(options =>
 {
-    options.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
+    options.BaseAddress = new Uri(builder.Configuration["ConnectionStrings:ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
 });
 
 builder.Services.AddScoped<AppState>();
@@ -18,6 +18,9 @@ builder.Services.AddHttpClient<GameService>(options =>
 {
     options.BaseAddress = new Uri(builder.Configuration["ApiBaseUrl"] ?? throw new InvalidOperationException("API base URL is not configured."));
 });
+
+builder.Services.AddScoped<AuthStateService>();
+builder.Services.AddAntiforgery();
 
 var app = builder.Build();
 
