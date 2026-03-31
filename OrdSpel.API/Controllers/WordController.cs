@@ -1,7 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.EntityFrameworkCore;
+using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
+using OrdSpel.DAL.Repositories.Interfaces;
 
 namespace OrdSpel.API.Controllers
 {
@@ -9,17 +11,17 @@ namespace OrdSpel.API.Controllers
     [Route("api/[controller]")]
     public class WordController : ControllerBase
     {
-        private readonly AppDbContext _context;
+        private readonly IWordService _wordService;
 
-        public WordController(AppDbContext context)
+        public WordController(IWordService wordService)
         {
-            _context = context;
+            _wordService = wordService;
         }
 
         [HttpGet] //enpoint för att hämta alla ord
         public async Task<IActionResult> GetAllWords()
         {
-            var words = await _context.Words.ToListAsync();
+            var words = await _wordService.GetAllAsync();
             return Ok(words);
         }
         
