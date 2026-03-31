@@ -48,6 +48,8 @@ builder.Services.AddScoped<IGameLobbyService, GameLobbyService>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IGameSessionRepository, GameSessionRepository>();
+
 builder.Services.AddScoped<IWordRepository, WordRepository>();
 builder.Services.AddScoped<IWordService, WordService>();
 
