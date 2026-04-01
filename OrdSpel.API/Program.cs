@@ -7,6 +7,8 @@ using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
 using OrdSpel.DAL.Repositories;
 using OrdSpel.DAL.Data.SeededData;
+using OrdSpel.DAL.Repositories;
+using OrdSpel.DAL.Repositories.Interfaces;
 using System.Text;
 
 
@@ -45,6 +47,14 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameLobbyService, GameLobbyService>();
 builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
+
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+
+builder.Services.AddScoped<IGameSessionRepository, GameSessionRepository>();
+
+builder.Services.AddScoped<IWordRepository, WordRepository>();
+builder.Services.AddScoped<IWordService, WordService>();
 
 builder.Services.AddAuthentication(options =>
 {
