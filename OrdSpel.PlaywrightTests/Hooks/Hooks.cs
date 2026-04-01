@@ -30,7 +30,10 @@ namespace OrdSpel.PlaywrightTests.Hooks
                  // sätt till true för att köra utan webbläsare
             });
 
-            var context = await _browser.NewContextAsync();
+            var context = await _browser.NewContextAsync(new BrowserNewContextOptions
+            {
+                IgnoreHTTPSErrors = true
+            });
             Page = await context.NewPageAsync();
         }
 

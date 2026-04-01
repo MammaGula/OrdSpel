@@ -18,18 +18,18 @@ namespace OrdSpel.PlaywrightTests.Features
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Reqnroll", "3.0.0.0")]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::NUnit.Framework.TestFixtureAttribute()]
-    [global::NUnit.Framework.DescriptionAttribute("Register")]
+    [global::NUnit.Framework.DescriptionAttribute("Create and join game")]
     [global::NUnit.Framework.FixtureLifeCycleAttribute(global::NUnit.Framework.LifeCycle.InstancePerTestCase)]
-    public partial class RegisterFeature
+    public partial class CreateAndJoinGameFeature
     {
         
         private global::Reqnroll.ITestRunner testRunner;
         
         private static string[] featureTags = ((string[])(null));
         
-        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Register", "A short summary of the feature", global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
+        private static global::Reqnroll.FeatureInfo featureInfo = new global::Reqnroll.FeatureInfo(new global::System.Globalization.CultureInfo("en-US"), "Features", "Create and join game", null, global::Reqnroll.ProgrammingLanguage.CSharp, featureTags, InitializeCucumberMessages());
         
-#line 1 "Register.feature"
+#line 1 "CreateJoinGame.feature"
 #line hidden
         
         [global::NUnit.Framework.OneTimeSetUpAttribute()]
@@ -105,20 +105,20 @@ namespace OrdSpel.PlaywrightTests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/Register.feature.ndjson", 3);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Features/CreateJoinGame.feature.ndjson", 4);
         }
         
         [global::NUnit.Framework.TestAttribute()]
-        [global::NUnit.Framework.DescriptionAttribute("Successful registration")]
-        public async global::System.Threading.Tasks.Task SuccessfulRegistration()
+        [global::NUnit.Framework.DescriptionAttribute("Logged in user can create a game and see the game code")]
+        public async global::System.Threading.Tasks.Task LoggedInUserCanCreateAGameAndSeeTheGameCode()
         {
             string[] tagsOfScenario = ((string[])(null));
             global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
             string pickleIndex = "0";
-            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Successful registration", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("Logged in user can create a game and see the game code", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
             string[] tagsOfRule = ((string[])(null));
             global::Reqnroll.RuleInfo ruleInfo = null;
-#line 6
+#line 3
 this.ScenarioInitialize(scenarioInfo, ruleInfo);
 #line hidden
             if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
@@ -128,14 +128,53 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
             else
             {
                 await this.ScenarioStartAsync();
+#line 4
+    await testRunner.GivenAsync("I am logged in as \"playwright_user\" with password \"Test123!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 5
+    await testRunner.WhenAsync("I navigate to the game page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 6
+    await testRunner.AndAsync("I select a category and click Create", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
 #line 7
-    await testRunner.GivenAsync("I am on the register page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+    await testRunner.ThenAsync("I should see a game code on the screen", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 8
-    await testRunner.WhenAsync("I fill in username \"testuser\" and password \"Test123!\" and confirm the password", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
-#line hidden
+            }
+            await this.ScenarioCleanupAsync();
+        }
+        
+        [global::NUnit.Framework.TestAttribute()]
+        [global::NUnit.Framework.DescriptionAttribute("User sees error message when entering invalid game code")]
+        public async global::System.Threading.Tasks.Task UserSeesErrorMessageWhenEnteringInvalidGameCode()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            global::System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new global::System.Collections.Specialized.OrderedDictionary();
+            string pickleIndex = "1";
+            global::Reqnroll.ScenarioInfo scenarioInfo = new global::Reqnroll.ScenarioInfo("User sees error message when entering invalid game code", null, tagsOfScenario, argumentsOfScenario, featureTags, pickleIndex);
+            string[] tagsOfRule = ((string[])(null));
+            global::Reqnroll.RuleInfo ruleInfo = null;
 #line 9
-    await testRunner.ThenAsync("I should be redirected to the login page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
+this.ScenarioInitialize(scenarioInfo, ruleInfo);
+#line hidden
+            if ((global::Reqnroll.TagHelper.ContainsIgnoreTag(scenarioInfo.CombinedTags) || global::Reqnroll.TagHelper.ContainsIgnoreTag(featureTags)))
+            {
+                await testRunner.SkipScenarioAsync();
+            }
+            else
+            {
+                await this.ScenarioStartAsync();
+#line 10
+    await testRunner.GivenAsync("I am logged in as \"playwright_user\" with password \"Test123!\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Given ");
+#line hidden
+#line 11
+    await testRunner.WhenAsync("I navigate to the game page", ((string)(null)), ((global::Reqnroll.Table)(null)), "When ");
+#line hidden
+#line 12
+    await testRunner.AndAsync("I enter the game code \"000000\" and click Join", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
+#line hidden
+#line 13
+    await testRunner.ThenAsync("I should see the error message \"Spelet hittades inte.\"", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
             }
             await this.ScenarioCleanupAsync();

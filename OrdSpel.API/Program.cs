@@ -5,6 +5,7 @@ using Microsoft.IdentityModel.Tokens;
 using OrdSpel.API.Services;
 using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
+using OrdSpel.DAL.Repositories;
 using OrdSpel.DAL.Data.SeededData;
 using OrdSpel.DAL.Repositories;
 using OrdSpel.DAL.Repositories.Interfaces;
@@ -44,6 +45,8 @@ builder.Services.AddScoped<JwtService>();
 // Registrerat via interface så MockAuthService enkelt kan bytas in vid testning
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameLobbyService, GameLobbyService>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
+builder.Services.AddScoped<IGameService, GameService>();
 
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();

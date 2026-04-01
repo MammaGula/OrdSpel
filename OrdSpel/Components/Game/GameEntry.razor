@@ -1,0 +1,116 @@
+@using OrdSpel.Shared.GameDTOs
+@using OrdSpel.UI.Services
+
+@inject GameService GameService
+@inject NavigationManager NavigationManager
+@inject IJSRuntime JS
+
+<div>
+    <h3>Skapa spel</h3>
+
+    <select id="categorySelect" @bind="_categoryId">
+        <option value="0">Välj kategori...</option>
+        @foreach (var category in _categories)
+        {
+            <option value="@category.Id">@category.Name</option>
+        }
+    </select>
+    <button id="createGameButton" @onclick="CreateGame">Skapa</button>
+
+    @if (!string.IsNullOrEmpty(_createError))
+    {
+        <p id="createError">@_createError</p>
+    }
+
+    @if (_createdSession != null)
+    {
+        <p>Spelet skapat! Spelkod: <strong id="gameCode">@_createdSession.GameCode</strong></p>
+    }
+</div>
+
+<hr />
+
+<div>
+    <h3>Joina spel</h3>
+
+    <input id="gameCodeInput" @bind="_joinCode" type="text" placeholder="Spelkod" maxlength="6" />
+    <button id="joinGameButton" @onclick="JoinGame">Anslut</button>
+
+    @if (!string.IsNullOrEmpty(_joinError))
+    {
+        <p id="joinError">@_joinError</p>
+    }
+</div>
+
+@code {
+    // TODO: CategoryModel ska ersättas med CategoryDto från OrdSpel.Shared
+    // när kollegans kategori-feature (BLL-service & DAL-repository) är klar och mergad.
+    private class CategoryModel
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+    }
+
+    private int _categoryId;
+    private string _joinCode = string.Empty;
+    private string _createError = string.Empty;
+    private string _joinError = string.Empty;
+    private GameSessionResponseDto? _createdSession;
+    private List<CategoryModel> _categories = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _categories = await GameService.GetCategoriesAsync<CategoryModel>();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+            await JS.InvokeVoidAsync("eval", "document.body.setAttribute('blazor-ready', 'true')");
+    }
+
+    private async Task CreateGame()
+    {
+        _createError = string.Empty;
+        _createdSession = null;
+
+        if (_categoryId <= 0)
+        {
+            _createError = "Välj en kategori.";
+            return;
+        }
+
+        var dto = new CreateGameDto { CategoryId = _categoryId };
+        var result = await GameService.CreateGameAsync(dto);
+
+        if (result == null)
+        {
+            _createError = "Något gick fel. Försök igen.";
+            return;
+        }
+
+        _createdSession = result;
+    }
+
+    private async Task JoinGame()
+    {
+        _joinError = string.Empty;
+
+        if (string.IsNullOrWhiteSpace(_joinCode))
+        {
+            _joinError = "Ange en spelkod.";
+            return;
+        }
+
+        var dto = new JoinGameDto { GameCode = _joinCode };
+        var (result, error) = await GameService.JoinGameAsync(dto);
+
+        if (error != null)
+        {
+            _joinError = error;
+            return;
+        }
+
+        NavigationManager.NavigateTo($"/lobby/{result!.GameCode}");
+    }
+}
