@@ -3,7 +3,7 @@ using OrdSpel.BLL.Services;
 using OrdSpel.DAL.Data;
 using OrdSpel.DAL.Models;
 using OrdSpel.DAL.Repositories;
-using OrdSpel.Shared;
+using OrdSpel.Shared.Enums;
 using Xunit;
 
 namespace OrdSpel.BLL.Test
@@ -107,9 +107,9 @@ namespace OrdSpel.BLL.Test
 
 
 
-        // Test 3: 2 players + status is InProgress => IsReadyToStart should be true
+        // Test 3: 2 players + status is WaitingForPlayers => IsReadyToStart should be true
         [Fact]
-        public async Task GetLobbyStatusAsync_IsReadyToStart_True_WhenTwoPlayersAndInProgress()
+        public async Task GetLobbyStatusAsync_IsReadyToStart_True_WhenTwoPlayersAndWaitingForPlayers()
         {
             // Arrange: Create a simulated database context 
             var context = CreateContext();
@@ -123,11 +123,11 @@ namespace OrdSpel.BLL.Test
             context.Categories.Add(category);
             await context.SaveChangesAsync();
 
-            // Create a game session (Status.Inprogress && startWord = "kat")
+            // Create a game session (Status.WaitingForPlayers && startWord = "kat")
             var session = new GameSession
             {
                 GameCode = "XYZ789",
-                Status = GameStatus.InProgress,
+                Status = GameStatus.WaitingForPlayers,
                 CategoryId = category.Id,
                 Category = category,
                 StartWord = "katt",
@@ -168,7 +168,7 @@ namespace OrdSpel.BLL.Test
             Assert.NotNull(result);
             Assert.Equal(2, result!.PlayerCount);
             Assert.True(result.IsReadyToStart);
-            Assert.Equal(GameStatus.InProgress, result.Status);
+            Assert.Equal(GameStatus.WaitingForPlayers, result.Status);
             Assert.Equal("user1", result.CurrentTurnUserId);
         }
     }

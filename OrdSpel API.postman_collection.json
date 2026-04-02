@@ -41,14 +41,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -85,14 +79,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -132,14 +120,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -176,14 +158,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -221,14 +197,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/auth/delete",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "delete"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "delete"]
             }
           },
           "response": []
@@ -273,14 +243,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -320,14 +284,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -367,14 +325,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/auth/register",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "register"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "register"]
             }
           },
           "response": []
@@ -424,14 +376,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/game/create",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "game",
-                "create"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "game", "create"]
             }
           },
           "response": []
@@ -483,14 +429,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/game/join",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "game",
-                "join"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "game", "join"]
             }
           },
           "response": []
@@ -537,14 +477,8 @@
             },
             "url": {
               "raw": "{{baseUrl}}/api/game/join",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "game",
-                "join"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "game", "join"]
             }
           },
           "response": []
@@ -582,15 +516,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/game/end/{{gameCode}}",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "game",
-                "end",
-                "{{gameCode}}"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "game", "end", "{{gameCode}}"]
             }
           },
           "response": []
@@ -628,14 +555,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/auth/delete",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "delete"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "delete"]
             }
           },
           "response": []
@@ -672,14 +593,8 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/auth/delete",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "delete"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "delete"]
             }
           },
           "response": []
@@ -716,17 +631,239 @@
             "header": [],
             "url": {
               "raw": "{{baseUrl}}/api/auth/delete",
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "path": [
-                "api",
-                "auth",
-                "delete"
-              ]
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "auth", "delete"]
             }
           },
           "response": []
+        }
+      ]
+    },
+    {
+      "name": "Auth - Login & Me (tillägg)",
+      "item": [
+        {
+          "name": "Login - Fel lösenord",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"401 Unauthorized\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"Wrong123!\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "Login - Lyckat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "var json = pm.response.json();",
+                  "pm.environment.set(\"token\", json.token);"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"username\": \"testuser\",\n  \"password\": \"Test123!\"\n}"
+            },
+            "url": "{{baseUrl}}/api/auth/login"
+          }
+        },
+        {
+          "name": "Me - Unauthorized",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"401 Unauthorized\", function () {",
+                  "    pm.response.to.have.status(401);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/api/auth/me"
+          }
+        },
+        {
+          "name": "Me - Lyckat",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "var json = pm.response.json();",
+                  "pm.expect(json.userId).to.exist;",
+                  "pm.expect(json.username).to.exist;"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/api/auth/me"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Category & Word (tillägg)",
+      "item": [
+        {
+          "name": "Get Categories",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/category"
+          }
+        },
+        {
+          "name": "Get Category Words - OK",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 eller 404\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200,404]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/category/1/words"
+          }
+        },
+        {
+          "name": "Get Category Words - Ogiltig",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"404 Not Found\", function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/category/9999/words"
+          }
+        },
+        {
+          "name": "Get All Words",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 OK\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/api/word"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Game - Extra (tillägg)",
+      "item": [
+        {
+          "name": "Get Lobby Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 eller 404\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200,404]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token1}}" }
+            ],
+            "url": "{{baseUrl}}/api/game/{{gameCode}}/lobby"
+          }
+        },
+        {
+          "name": "Get Game",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"200 eller 404\", function () {",
+                  "    pm.expect(pm.response.code).to.be.oneOf([200,404]);",
+                  "});"
+                ]
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token1}}" }
+            ],
+            "url": "{{baseUrl}}/api/game/{{gameCode}}"
+          }
         }
       ]
     }
