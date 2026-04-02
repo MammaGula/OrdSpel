@@ -52,6 +52,7 @@ builder.Services.AddScoped<IGameSessionRepository, GameSessionRepository>();
 
 builder.Services.AddScoped<IWordRepository, WordRepository>();
 builder.Services.AddScoped<IWordService, WordService>();
+builder.Services.AddScoped<ITurnService, TurnService>();
 
 builder.Services.AddAuthentication(options =>
 {
