@@ -1,5 +1,8 @@
 @page "/game"
 @using OrdSpel.UI.Components.Game
+@using OrdSpel.UI.Services
+@inject AuthStateService AuthState
+@inject NavigationManager NavigationManager
 
 <div class="container mt-4">
     <h2>Ordspelet</h2>
@@ -9,3 +12,11 @@
 <h1>Spelsidan</h1>
 
 <GameEntry />
+
+@code {
+    protected override void OnInitialized()
+    {
+        if (!AuthState.IsLoggedIn)
+            NavigationManager.NavigateTo("/");
+    }
+}

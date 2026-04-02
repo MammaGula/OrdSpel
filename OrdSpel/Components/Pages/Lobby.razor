@@ -4,10 +4,12 @@
 
 @* For creating realtime HubConnection *@
 @using Microsoft.AspNetCore.SignalR.Client 
+@using OrdSpel.UI.Services
 
 
 @inject OrdSpel.UI.Services.GameLobbyApiService LobbyApi
 @inject NavigationManager Navigation
+@inject AuthStateService AuthState
 
 @* This component performs “async disposal.” *@
 @* It is used to close the SignalR connection and cancel polling when leaving the page, so that no resources remain hanging. *@
@@ -82,13 +84,26 @@
 
 
 
-    // 1. When accesing the page first time or when the URL parameter changes, 
+    protected override void OnInitialized()
+    {
+        if (!AuthState.IsLoggedIn)
+            Navigation.NavigateTo("/");
+    }
+
+    // 1. When accesing the page first time or when the URL parameter changes,
     // we need to fetch the lobby status and set up the SignalR connection.
     protected override async Task OnParametersSetAsync()
     {
         // Stop any existing polling and close existing SignalR connection before starting a new one
         await StopPollingAsync();   
         await DisposeHubAsync();
+
+        if (string.IsNullOrWhiteSpace(Code))
+        {
+            _lobbyStatus = null;
+            _isLoading = false;
+            return;
+        }
 
         // Fetch the initial lobby status from the API
         _isLoading = true;
@@ -153,9 +168,13 @@
             await _hubConnection.StartAsync();
             await _hubConnection.InvokeAsync("JoinGame", Code);
         }
-        catch
+        catch (InvalidOperationException)
         {
             // If starting the connection or joining the lobby group fails, start polling as a fallback.
+            await StartPollingAsync();
+        }
+        catch (HttpRequestException)
+        {
             await StartPollingAsync();
         }
     }
