@@ -58,5 +58,20 @@ namespace OrdSpel.API.Test
 
             Assert.NotEmpty(results);
         }
+
+        [Fact]
+        public void Register_WithTooShortPassword_ShouldFailValidation()
+        {
+            var dto = new RegisterDto
+            {
+                Username = "testuser",
+                Password = "abc",
+                ConfirmPassword = "abc"
+            };
+
+            var results = ValidateDto(dto);
+
+            Assert.NotEmpty(results);
+        }
     }
 }

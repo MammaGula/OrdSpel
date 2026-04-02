@@ -1,16 +1,17 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using OrdSpel.API.Interfaces;
 using OrdSpel.API.Services;
-using OrdSpel.BLL.Services;
+using OrdSpel.BLL.Interfaces;
 using OrdSpel.Shared.AuthDTOs;
 using System.Security.Claims;
 
 namespace OrdSpel.API.Controllers
 {
-    
+
     [ApiController]
     [Route("api/auth")]
-    public class AuthController : ControllerBase
+    public class AuthController : ControllerBase, IAuthController
     {
         private readonly IAuthService _authService;
         private readonly JwtService _jwtService;
@@ -39,12 +40,12 @@ namespace OrdSpel.API.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var user = await _authService.RegisterAsync(dto);
+            var result = await _authService.RegisterAsync(dto);
 
-            if (user == null)
-                return BadRequest("Något gick fel vid registrering.");
+            if (!result.Success)
+                return BadRequest(result.Error);
 
-            var token = _jwtService.GenerateToken(user);
+            var token = _jwtService.GenerateToken(result.Data!);
             return Ok(new TokenResponse { Token = token });
         }
 
@@ -56,6 +57,19 @@ namespace OrdSpel.API.Controllers
             var username = User.FindFirst(ClaimTypes.Name)?.Value;
 
             return Ok(new { userId, username });
+        }
+
+        [Authorize]
+        [HttpDelete("delete")]
+        public async Task<IActionResult> Delete()
+        {
+            var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (userId == null) return Unauthorized();
+
+            var success = await _authService.DeleteAsync(userId);
+            if (!success) return BadRequest("Något gick fel vid borttagning av konto.");
+
+            return Ok("Kontot har tagits bort.");
         }
     }
 }

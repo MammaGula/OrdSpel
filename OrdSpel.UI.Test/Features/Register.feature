@@ -2,11 +2,6 @@
 
 A short summary of the feature
 
-@tag1
-Scenario: [scenario name]
-	Given [context]
-	When [action]
-	Then [outcome]
 
 Scenario: Successful registration
     Given I am on the register page

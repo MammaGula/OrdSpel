@@ -1,9 +1,10 @@
 ﻿using System.Net.Http.Headers;
 using OrdSpel.Shared.AuthDTOs;
+using OrdSpel.UI.Interfaces;
 
 namespace OrdSpel.UI.Services
 {
-    public class HttpService
+    public class HttpService : IHttpService
     {
         public HttpClient _httpClient { get; }
 
@@ -42,7 +43,7 @@ namespace OrdSpel.UI.Services
             if (response.IsSuccessStatusCode)
             {
                 var result = await response.Content.ReadFromJsonAsync<TokenResponse>();
-                return new AuthResult { Success = true, Token = result?.Token }; //Returnerar AuthResult-modell (medell i UI:t!)
+                return new AuthResult { Success = true, Token = result?.Token }; //Returnerar AuthResult-modell (modell i UI:t!)
             }
 
             var errorMessage = await response.Content.ReadAsStringAsync();

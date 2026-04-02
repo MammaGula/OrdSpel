@@ -15,12 +15,12 @@
         <form @onsubmit="LoginUser" @onsubmit:preventDefault>
             <div class="mb-3">
                 <label class="form-label">Användarnamn</label>
-                <input class="form-control" @bind="_enteredUsername" type="text" placeholder="Användarnamn" />
+                <input id="username" class="form-control" @bind="_enteredUsername" type="text" placeholder="Användarnamn" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Lösenord</label>
-                <input class="form-control" @bind="_enteredPassword" type="password" placeholder="Lösenord" />
+                <input id="password" class="form-control" @bind="_enteredPassword" type="password" placeholder="Lösenord" />
             </div>
 
             @if (!string.IsNullOrEmpty(DisplayBox))
@@ -28,7 +28,7 @@
                 <div class="alert alert-danger">@DisplayBox</div>
             }
 
-            <button type="submit" class="btn btn-primary w-100">Logga in</button>
+            <button id="submitLogin" type="submit" class="btn btn-primary w-100">Logga in</button>
         </form>
     </div>
 </div>
@@ -61,7 +61,7 @@
         {
             DisplayBox = "Fel användarnamn eller lösenord";
 
-            await Task.Delay(8000);
+            await Task.Delay(3000);
             DisplayBox = string.Empty;
             return;
         }
