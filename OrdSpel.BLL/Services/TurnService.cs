@@ -3,6 +3,7 @@ using OrdSpel.DAL.Repositories.Interfaces;
 using OrdSpel.Shared;
 using OrdSpel.Shared.Constraints;
 using OrdSpel.Shared.DTOs;
+using OrdSpel.Shared.Enums;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -107,7 +108,7 @@ namespace OrdSpel.BLL.Services
                 dto.Word = word;
             }
 
-            //spara innehållet från den nya turen
+            //spara innehållet från den nya turen i databasen, använder då modell ist för dto
             var turn = new GameTurn
             {
                 SessionId = session.Id,
