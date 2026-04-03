@@ -7,38 +7,38 @@
 <div class="container mt-4">
     @if (_isLoading)
     {
-        <p class="text-muted">Laddar resultat...</p>
+        <p id="gameResultLoading" class="text-muted">Laddar resultat...</p>
     }
     else if (_error is not null)
     {
-        <div class="alert alert-danger">@_error</div>
-        <button class="btn btn-outline-secondary" @onclick="BackToGame">Tillbaka</button>
+        <div id="gameResultError" class="alert alert-danger">@_error</div>
+        <button id="gameResultBackButton" class="btn btn-outline-secondary" @onclick="BackToGame">Tillbaka</button>
     }
     else if (_result is null)
     {
-        <div class="alert alert-danger">Kunde inte ladda resultatet.</div>
-        <button class="btn btn-outline-secondary" @onclick="BackToGame">Tillbaka</button>
+        <div id="gameResultError" class="alert alert-danger">Kunde inte ladda resultatet.</div>
+        <button id="gameResultBackButton" class="btn btn-outline-secondary" @onclick="BackToGame">Tillbaka</button>
     }
     else
     {
-        <h2>Spelslut & resultat</h2>
+        <h2 id="gameResultTitle">Spelslut & resultat</h2>
 
         <div class="mb-3">
             @if (string.IsNullOrWhiteSpace(_result.WinnerUserId))
             {
-                <div class="alert alert-info">Oavgjort!</div>
+                <div id="gameResultWinner" class="alert alert-info">Oavgjort!</div>
             }
             else
             {
-                <div class="alert alert-success">Vinnare: @_result.WinnerUserId</div>
+                <div id="gameResultWinner" class="alert alert-success">Vinnare: @_result.WinnerUserId</div>
             }
         </div>
 
-        <h5>Poängtabell</h5>
-        <ul class="list-group" style="max-width: 420px;">
+        <h5 id="gameResultScoreboardTitle">Poängtabell</h5>
+        <ul id="gameResultScoreboard" class="list-group" style="max-width: 420px;">
             @foreach (var player in _result.Players.OrderBy(p => p.PlayerOrder))
             {
-                <li class="list-group-item d-flex justify-content-between align-items-center">
+                <li class="list-group-item d-flex justify-content-between align-items-center" id="gameResultPlayer-@player.PlayerOrder">
                     <span>Spelare @player.PlayerOrder</span>
                     <span class="badge bg-primary rounded-pill">@player.TotalScore p</span>
                 </li>
@@ -46,7 +46,7 @@
         </ul>
 
         <div class="mt-4">
-            <button class="btn btn-primary" @onclick="BackToGame">Tillbaka till spelet</button>
+            <button id="gameResultBackButton" class="btn btn-primary" @onclick="BackToGame">Tillbaka till spelet</button>
         </div>
     }
 </div>
