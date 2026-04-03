@@ -9,9 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    
-    <ReqnrollFeatureFile Remove="Features\GameResult.feature" />
-    
     <ReqnrollFeatureFile Remove="features\Login.feature" />
   </ItemGroup>
 
