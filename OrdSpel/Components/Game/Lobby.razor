@@ -138,6 +138,12 @@
             return;
         }
 
+        if (_lobbyStatus?.Status == OrdSpel.Shared.Enums.GameStatus.GameFinished)
+        {
+            Navigation.NavigateTo($"/game/{Uri.EscapeDataString(Code)}/result");
+            return;
+        }
+
         // Annars StartHubAsyn, the SignalR connection to receive real-time updates about the lobby status
         // (If it fails, we will fall back to polling)
         await StartHubAsync();
@@ -161,6 +167,11 @@
         if (_lobbyStatus?.Status == OrdSpel.Shared.Enums.GameStatus.InProgress)
         {
             Navigation.NavigateTo($"/game/{Uri.EscapeDataString(Code!)}");
+        }
+
+        if (_lobbyStatus?.Status == OrdSpel.Shared.Enums.GameStatus.GameFinished)
+        {
+            Navigation.NavigateTo($"/game/{Uri.EscapeDataString(Code!)}/result");
         }
     }
 
