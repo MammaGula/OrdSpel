@@ -10,7 +10,7 @@ namespace OrdSpel.Shared.Constraints
         public const int TotalRounds = 20;
         public const int PassPenalty = -5; //minuspoäng för att passa
         public const int LongWordBonus = 3; //bonuspoäng för långa ord, ges vid gränsen nedan
-        public const int LongWordThreshold = 15; //gränsen för när bonusen ovan ska ges, alltså om ett ord är längre än 15 bokstäver får man longwordbonus; 3p
+        public const int LongWordThreshold = 12; //gränsen för när bonusen ovan ska ges, alltså om ett ord är längre än 12 bokstäver får man longwordbonus; 3p
         public const int HardWordBonus = 3; //används just nu inte eftersom vi ännu inte har tilldelat något ord isHard = true
     }
 }

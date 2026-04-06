@@ -1,4 +1,5 @@
-﻿using OrdSpel.DAL.Models;
+﻿using OrdSpel.BLL.Interfaces;
+using OrdSpel.DAL.Models;
 using OrdSpel.DAL.Repositories.Interfaces;
 using OrdSpel.Shared;
 using OrdSpel.Shared.Constraints;
@@ -25,7 +26,7 @@ namespace OrdSpel.BLL.Services
 
             if (session == null)
             {
-                return (null, "Spelet hittades inte");
+                return (null, "Spelet hittades inte"); //hårdkodade felmeddelande, vill ändra till enums om det finns tid
             }
 
             if (session.Status != GameStatus.InProgress)

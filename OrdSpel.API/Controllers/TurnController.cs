@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using OrdSpel.BLL.Services;
+using OrdSpel.BLL.Interfaces;
 using OrdSpel.Shared.DTOs;
 using System.Security.Claims;
 

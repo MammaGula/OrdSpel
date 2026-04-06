@@ -1,6 +1,6 @@
 ﻿using OrdSpel.Shared.DTOs;
 
-namespace OrdSpel.BLL.Services
+namespace OrdSpel.BLL.Interfaces
 {
     public interface ITurnService
     {
