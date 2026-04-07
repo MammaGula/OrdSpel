@@ -20,6 +20,6 @@ public class GameResultSteps
     {
         await _page.WaitForSelectorAsync("#gameResultError");
         var text = await _page.TextContentAsync("#gameResultError");
-        Assert.That(text, Does.Contain("Kunde inte ladda resultatet"));
+        Assert.That(text, Does.Contain("Kunde inte hämta resultat"));
     }
 }
