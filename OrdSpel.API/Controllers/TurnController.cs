@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
+using OrdSpel.API.Hubs;
 using OrdSpel.BLL.Interfaces;
 using OrdSpel.Shared.DTOs;
 using System.Security.Claims;
@@ -12,10 +14,12 @@ namespace OrdSpel.API.Controllers
     public class TurnController : ControllerBase
     {
         private readonly ITurnService _turnService;
+        private readonly IHubContext<GameHub> _hubContext;
 
-        public TurnController(ITurnService turnService)
+        public TurnController(ITurnService turnService, IHubContext<GameHub> hubContext)
         {
             _turnService = turnService;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
@@ -38,6 +42,10 @@ namespace OrdSpel.API.Controllers
             {
                 return BadRequest(new { message = error });
             }
+
+            //skcika signalR-event efter lyckad turn
+            await _hubContext.Clients.Group(code)
+                .SendAsync("TurnUpdated", code);
 
             //eller returnera response om error är null
             return Ok(response);
