@@ -4,7 +4,7 @@ using OrdSpel.DAL.Data;
 using OrdSpel.DAL.Models;
 using OrdSpel.DAL.Repositories;
 using OrdSpel.Shared.Enums;
-using Xunit;
+
 
 namespace OrdSpel.BLL.Test
 {
@@ -25,7 +25,7 @@ namespace OrdSpel.BLL.Test
 
         // Test 1: returns null when the game code does not exist in the database.
         [Fact]
-        public async Task GetLobbyStatusAsync_ReturnsNull_WhenGameCodeDoesNotExist()
+        public async Task GetLobbyStatusAsync_ReturnsFailResult_WhenGameCodeDoesNotExist()
         {
             // Arrange
             var context = CreateContext();
@@ -36,7 +36,8 @@ namespace OrdSpel.BLL.Test
             var result = await service.GetLobbyStatusAsync("NOPE");
 
             // Assert
-            Assert.Null(result);
+            Assert.False(result.Success);
+            Assert.Null(result.Data);
         }
 
 
@@ -95,13 +96,14 @@ namespace OrdSpel.BLL.Test
 
 
             // Assert
-            Assert.NotNull(result);
-            Assert.Equal("ABC123", result!.GameCode);
-            Assert.Equal("Djur", result.CategoryName);
-            Assert.Equal("hund", result.StartWord);
-            Assert.Equal(GameStatus.WaitingForPlayers, result.Status);
-            Assert.Equal(1, result.PlayerCount);
-            Assert.False(result.IsReadyToStart);
+            Assert.True(result.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal("ABC123", result.Data!.GameCode);
+            Assert.Equal("Djur", result.Data.CategoryName);
+            Assert.Equal("hund", result.Data.StartWord);
+            Assert.Equal(GameStatus.WaitingForPlayers, result.Data.Status);
+            Assert.Equal(1, result.Data.PlayerCount);
+            Assert.False(result.Data.IsReadyToStart);
         }
 
 
@@ -165,11 +167,12 @@ namespace OrdSpel.BLL.Test
             // Act: Call  to retrieve the lobby status for this game code
             var result = await service.GetLobbyStatusAsync("XYZ789");
 
-            Assert.NotNull(result);
-            Assert.Equal(2, result!.PlayerCount);
-            Assert.True(result.IsReadyToStart);
-            Assert.Equal(GameStatus.WaitingForPlayers, result.Status);
-            Assert.Equal("user1", result.CurrentTurnUserId);
+            Assert.True(result.Success);
+            Assert.NotNull(result.Data);
+            Assert.Equal(2, result.Data!.PlayerCount);
+            Assert.True(result.Data.IsReadyToStart);
+            Assert.Equal(GameStatus.WaitingForPlayers, result.Data.Status);
+            Assert.Equal("user1", result.Data.CurrentTurnUserId);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using OrdSpel.BLL.Interfaces;
 using OrdSpel.DAL.Repositories.Interfaces;
+using OrdSpel.Shared;
 using OrdSpel.Shared.DTOs;
 using OrdSpel.Shared.Enums;
 using System.Threading.Tasks;
@@ -19,11 +20,11 @@ namespace OrdSpel.BLL.Services
         }
 
         // Retrieves the game lobby status for a given game code
-        public async Task<GameLobbyStatusDto?> GetLobbyStatusAsync(string gameCode)
+        public async Task<ServiceResult<GameLobbyStatusDto>> GetLobbyStatusAsync(string gameCode)
         {
             if (string.IsNullOrWhiteSpace(gameCode))
             {
-                return null;
+                return ServiceResult<GameLobbyStatusDto>.Fail("Invalid game code");
             }
 
             // Retrieve the game session including related category and players
@@ -31,11 +32,11 @@ namespace OrdSpel.BLL.Services
 
             if (session == null)
             {
-                return null;
+                return ServiceResult<GameLobbyStatusDto>.Fail("Session not found");
             }
 
             // Map the retrieved game session to a GameLobbyStatusDto
-            return new GameLobbyStatusDto
+            return ServiceResult<GameLobbyStatusDto>.Ok(new GameLobbyStatusDto
             {
                 SessionId = session.Id,
                 GameCode = session.GameCode,
@@ -47,7 +48,7 @@ namespace OrdSpel.BLL.Services
                 IsReadyToStart = session.Players.Count >= 2 && session.Status == GameStatus.WaitingForPlayers,
                 CurrentTurnUserId = session.CurrentTurnUserId,
               
-            };
+            });
         }
     }
 }

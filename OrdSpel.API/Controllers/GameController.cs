@@ -35,12 +35,12 @@ namespace OrdSpel.API.Controllers
         {
             var result = await _gameLobbyService.GetLobbyStatusAsync(code);
 
-            if (result == null)
+            if (!result.Success)
             {
                 return NotFound("Game session was not found.");
             }
 
-            return Ok(result);
+            return Ok(result.Data);
         }
 
         [HttpPost("create")]
