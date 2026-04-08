@@ -90,7 +90,7 @@
         }
 
         _createdSession = result;
-        NavigationManager.NavigateTo($"/lobby/{result.GameCode}");
+        NavigationManager.NavigateTo($"/game/{result.GameCode}");
     }
 
     private async Task JoinGame()
@@ -112,6 +112,6 @@
             return;
         }
 
-        NavigationManager.NavigateTo($"/lobby/{result!.GameCode}");
+        NavigationManager.NavigateTo($"/game/{result!.GameCode}");
     }
 }

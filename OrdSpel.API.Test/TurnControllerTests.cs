@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.Text;
 using Moq;
 using OrdSpel.API.Controllers;
-using Microsoft.VisualBasic;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.SignalR;
 using OrdSpel.Shared.DTOs;
-using Xunit.Sdk;
 using OrdSpel.BLL.Interfaces;
+using OrdSpel.API.Hubs;
 
 namespace OrdSpel.API.Test
 {
@@ -18,12 +18,14 @@ namespace OrdSpel.API.Test
     {
         //mocka för att testa utan databasen
         private readonly Mock<ITurnService> _serviceMock;
+        private readonly Mock<IHubContext<GameHub>> _hubContextMock;
         private readonly TurnController _controller;
 
         public TurnControllerTests()
         {
             _serviceMock = new Mock<ITurnService>();
-            _controller = new TurnController(_serviceMock.Object);
+            _hubContextMock = new Mock<IHubContext<GameHub>>();
+            _controller = new TurnController(_serviceMock.Object, _hubContextMock.Object);
 
             //simulerar en inloggad användare, detta görs automatiskt av asp.net och jwt i verkligeheten, men eftersom tester inte kör riktiga requests måste man själv simulera en användare med controllercontext
             var claims = new List<Claim>

@@ -97,7 +97,7 @@ namespace OrdSpel.UI.Services
         public async Task<(TurnResponseDto? Result, string? Error)> SubmitTurnAsync(string gameCode, TurnRequestDto dto)
         {
             SetAuthHeader();
-            var response = await _httpClient.PostAsJsonAsync($"api/games/{gameCode}/turns", dto);
+            var response = await _httpClient.PostAsJsonAsync($"api/game/{gameCode}/turns", dto);
 
             if (response.IsSuccessStatusCode)
             {

@@ -2,25 +2,59 @@
 @page "/game/{Code}"
 @using OrdSpel.UI.Components.Game
 @using OrdSpel.UI.Services
+@using OrdSpel.Shared.DTOs
+@using OrdSpel.Shared.Enums
 @inject AuthStateService AuthState
 @inject NavigationManager NavigationManager
+@inject GameLobbyApiService LobbyService
 
 @if (string.IsNullOrEmpty(Code))
 {
     <GameEntry />
 }
-else
+else if (_status == null)
+{
+    <p>Loading...</p>
+}
+else if (_status.Status == GameStatus.WaitingForPlayers)
+{
+    <Lobby GameCode="@Code" />
+}
+else if (_status.Status == GameStatus.InProgress)
 {
     <ActiveGame GameCode="@Code" />
 }
+else if (_status.Status == GameStatus.GameFinished)
+{
+    <GameResult GameCode="@Code" />
+}
+
 
 @code {
-
     [Parameter]
     public string? Code { get; set; }
+
+    private GameLobbyStatusDto? _status;
+
     protected override void OnInitialized()
     {
         if (!AuthState.IsLoggedIn)
             NavigationManager.NavigateTo("/");
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        if (!string.IsNullOrWhiteSpace(Code))
+        {
+            try
+            {
+                _status = await LobbyService.GetLobbyStatusAsync(Code);
+            }
+            catch
+            {
+                // swallow here to avoid breaking UI; consider logging
+                _status = null;
+            }
+        }
     }
 }
