@@ -74,13 +74,14 @@ namespace OrdSpel.PlaywrightTests.StepDefinitions
 
             Assert.That(joinResponse.IsSuccessStatusCode, Is.True,
                 $"Second player failed to join: {await joinResponse.Content.ReadAsStringAsync()}");
-        }
 
-        [When("I click the start button")]
-        public async Task WhenIClickTheStartButton()
-        {
-            await _page.WaitForSelectorAsync("#startGameButton", new PageWaitForSelectorOptions { Timeout = 15000 });
-            await _page.ClickAsync("#startGameButton");
+            // Spelet startar automatiskt när spelare 2 jointar (SetSessionActiveAsync).
+            // Navigera bort och tillbaka så att Game.razor laddar om med status InProgress
+            // och visar ActiveGame-komponenten istället för lobby-vyn
+            await _page.EvaluateAsync("Blazor.navigateTo('/game', false, false)");
+            await Task.Delay(500);
+            await _page.EvaluateAsync("(url) => Blazor.navigateTo(url, false, false)", $"/game/{_gameCode}");
+            await Task.Delay(2000);
         }
 
         [Then("I should be on the active game page")]

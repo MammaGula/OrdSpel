@@ -144,18 +144,15 @@ this.ScenarioInitialize(scenarioInfo, ruleInfo);
     await testRunner.AndAsync("a second player joins the game via API", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
 #line 9
-    await testRunner.AndAsync("I click the start button", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
-#line hidden
-#line 10
     await testRunner.ThenAsync("I should be on the active game page", ((string)(null)), ((global::Reqnroll.Table)(null)), "Then ");
 #line hidden
-#line 11
+#line 10
     await testRunner.AndAsync("I should see the current word", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 11
     await testRunner.AndAsync("I should see the required letter", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
-#line 13
+#line 12
     await testRunner.AndAsync("I should see the scoreboard", ((string)(null)), ((global::Reqnroll.Table)(null)), "And ");
 #line hidden
             }
