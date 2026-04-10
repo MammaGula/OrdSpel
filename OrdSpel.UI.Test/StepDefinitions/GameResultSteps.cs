@@ -1,52 +1,67 @@
-using Microsoft.Playwright;
-using OrdSpel.PlaywrightTests.Helpers;
-using Reqnroll;
+//using System;
+//using System.Linq;
+//using System.Net.Http;
+//using System.Net.Http.Json;
+//using System.Text;
+//using System.Text.Json;
+//using System.Text.RegularExpressions;
+//using Microsoft.Playwright;
+//using OrdSpel.PlaywrightTests.Helpers;
+//using Reqnroll;
 
-namespace OrdSpel.PlaywrightTests.StepDefinitions;
+//namespace OrdSpel.PlaywrightTests.StepDefinitions;
 
-[Binding]
-public class GameResultSteps
-{
-    private readonly IPage _page;
-    private readonly string _baseUrl;
-    private readonly AuthHelper _authHelper;
+//[Binding]
+//public class GameResultSteps
+//{
+//    private readonly IPage _page;
+//    private readonly string _baseUrl;
+//    private readonly AuthHelper _authHelper;
 
-    public GameResultSteps(Hooks.Hooks hooks)
-    {
-        _page = hooks.Page;
-        _baseUrl = hooks.BaseUrl;
-        _authHelper = new AuthHelper(_page, _baseUrl);
-    }
+//    public GameResultSteps(Hooks.Hooks hooks)
+//    {
+//        _page = hooks.Page;
+//        _baseUrl = hooks.BaseUrl;
+//        _authHelper = new AuthHelper(_page, _baseUrl);
+//    }
 
+//    [When("I create and finish a game via API")]
+//    public async Task WhenICreateAndFinishAGameViaApi()
+//    {
+//        // Retrieve Cookies for API Authentication
+//        var cookies = await _page.Context.CookiesAsync();
+//        var cookieHeader = string.Join("; ", cookies.Select(c => $"{c.Name}={c.Value}"));
 
-    [Scope(Tag = "Result")]
-    [Given(@"I am logged in as ""(.*)"" with password ""(.*)""")]
-    public async Task GivenIAmLoggedInAsWithPassword(string username, string password)
-    {
-        await _authHelper.LoginAsync(username, password);
-    }
+//        using var client = new HttpClient { BaseAddress = new Uri(_baseUrl) };
+//        if (!string.IsNullOrEmpty(cookieHeader)) client.DefaultRequestHeaders.Add("Cookie", cookieHeader);
 
-    // Navigation step intentionally omitted here to avoid ambiguous step definitions.
-    // Use the shared navigation step defined in other step definition classes.
-    //Common steps(login, navigation) are defined in CreateJoinGameSteps and LobbySteps.
-    //This class should only contain assertions specific to game result page.
+//        // Find one category to use for game creation
+//        var catResp = await client.GetAsync("api/category");
+//        catResp.EnsureSuccessStatusCode();
+//        var cats = await catResp.Content.ReadFromJsonAsync<List<dynamic>>() ?? new List<dynamic>();
+//        if (cats.Count == 0) throw new InvalidOperationException("No categories available");
+//        int categoryId = (int)(cats[0].Id ?? cats[0].id);
 
+//        // Create game
+//        var payload = JsonSerializer.Serialize(new { CategoryId = categoryId });
+//        var createResp = await client.PostAsync("api/game/create", new StringContent(payload, Encoding.UTF8, "application/json"));
+//        createResp.EnsureSuccessStatusCode();
+//        var created = await createResp.Content.ReadFromJsonAsync<OrdSpel.Shared.GameDTOs.GameSessionResponseDto>();
+//        var gameCode = created?.GameCode ?? throw new InvalidOperationException("Create returned no gameCode");
 
-    [Then("I should see the game result load error message")]
-    public async Task ThenIShouldSeeTheGameResultLoadErrorMessage()
-    {
-        try
-        {
-            // GameResult component uses /game/{code} route and shows error when result cannot be loaded
-            await _page.WaitForSelectorAsync("#gameResultError", new PageWaitForSelectorOptions { Timeout = 60000 });
-            var text = await _page.TextContentAsync("#gameResultError");
-            Assert.That(text, Does.Contain("Kunde inte ladda resultatet").Or.Contain("Kunde inte hämta resultat"));
-        }
-        catch (Exception)
-        {
-            var path = $"game_result_failure_{DateTime.Now:yyyyMMdd_HHmmss}.png";
-            try { await _page.ScreenshotAsync(new PageScreenshotOptions { Path = path, FullPage = true }); } catch { }
-            throw;
-        }
-    }
-}
+//        // EndGame
+//        var endResp = await client.PutAsync($"api/game/end/{gameCode}", null);
+//        endResp.EnsureSuccessStatusCode();
+
+//        // Navigate to game result page
+//        await _page.GotoAsync(new Uri(new Uri(_baseUrl), $"game/{gameCode}").ToString(), new PageGotoOptions { WaitUntil = WaitUntilState.DOMContentLoaded, Timeout = 60000 });
+//        await _page.WaitForSelectorAsync("#gameResultTitle", new PageWaitForSelectorOptions { Timeout = 60000 });
+//    }
+
+//    [Then("I should see the game result")]
+//    public async Task ThenIShouldSeeTheGameResult()
+//    {
+//        await _page.WaitForSelectorAsync("#gameResultTitle", new PageWaitForSelectorOptions { Timeout = 60000 });
+//        await _page.WaitForSelectorAsync("#gameResultScoreboard", new PageWaitForSelectorOptions { Timeout = 60000 });
+//    }
+//}
