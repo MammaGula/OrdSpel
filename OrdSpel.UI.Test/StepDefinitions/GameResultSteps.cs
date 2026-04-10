@@ -65,3 +65,8 @@
 //        await _page.WaitForSelectorAsync("#gameResultScoreboard", new PageWaitForSelectorOptions { Timeout = 60000 });
 //    }
 //}
+
+
+
+// May back to fix it after inlämningen är klar, eller ni kan också radera den filen helt, den används inte i nuläget.
+// Det är en test som skulle skapa och avsluta ett spel via API:et och sedan navigera till resultatsidan för att kolla att den
