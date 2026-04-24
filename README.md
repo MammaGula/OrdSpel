@@ -109,7 +109,12 @@ If SignalR is unavailable, the UI falls back to **polling every few seconds**, e
 - xUnit
 - bUnit
 - Integration testing
-- BDD/UI-oriented test projects
+- BDD/UI-oriented test projects (PlayWright)
+
+Run all tests with:
+```powershell
+dotnet test
+```
 
 ## 📁 Solution Structure
 ```text
@@ -252,29 +257,5 @@ All active game state is stored in the database, making session recovery and syn
 
 ### SignalR Hub
 - `/hubs/game`
-
-## 🧪 Testing
-The solution includes several test projects for different layers of the system:
-- **OrdSpel.BLL.Test** – unit tests for business logic 
-- **OrdSpel.API.Test** – integration tests for API endpoints
-- **OrdSpel.DAL.Test.xUnit** – data access and repository tests
-- **OrdSpel.DAL.Test.BDD** – BDD-oriented tests
-- **OrdSpel.UI.Test** – UI tests for Blazor components
-
-Run all tests with:
-```powershell
-dotnet test
-```
-
-
-## 💼 Portfolio Notes
-This project demonstrates:
-- full-stack .NET application design
-- layered architecture
-- authentication and authorization with cookies
-- business-rule implementation in a separate logic layer
-- database-driven multiplayer game state
-- realtime client updates with SignalR
-- automated testing across multiple layers
 
 ---
