@@ -79,11 +79,6 @@ Data Access Layer / Repositories
 SQL Server Database
 ```
 
-### 🧭 Architecture Diagram
-> You can replace this placeholder with an exported diagram from draw.io, Excalidraw, Figma, or Visio.
-
-![Architecture Diagram Placeholder](docs/images/architecture-diagram-placeholder.png)
-
 ### ⚡ Realtime Strategy
 The application uses **SignalR** for live updates when players join or play a turn.
 If SignalR is unavailable, the UI falls back to **polling every few seconds**, ensuring the game remains functional.
