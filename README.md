@@ -1,8 +1,5 @@
 # 🎮 OrdSpel
 
-<div align="center">
-
-# 🎮 OrdSpel
 
 **A turn-based multiplayer word game built with Blazor Server, ASP.NET Core Web API, Entity Framework Core, and SignalR**
 
