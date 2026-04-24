@@ -52,16 +52,19 @@ The project stores game state in the database, which makes it possible to resume
 > Replace the placeholders below with real screenshots from the project.
 
 ### Home / Game Entry
-![OrdSpel Home Screenshot Placeholder](docs/images/placeholder-home.png)
+<img width="2546" height="1405" alt="Home" src="https://github.com/user-attachments/assets/b86823d0-fe0d-4d3d-b4eb-ab57965546ac" />
+<img width="2513" height="1460" alt="GameEntry" src="https://github.com/user-attachments/assets/81b2d00d-e3e9-4ee3-9d13-a57eafd74666" />
+
 
 ### Lobby View
-![OrdSpel Lobby Screenshot Placeholder](docs/images/placeholder-lobby.png)
+<img width="2756" height="1465" alt="Lobby" src="https://github.com/user-attachments/assets/a3c56596-dd52-4c5c-8ba0-f97c86df416a" />
 
 ### Active Game View
-![OrdSpel Active Game Screenshot Placeholder](docs/images/placeholder-active-game.png)
+<img width="2701" height="1443" alt="ActiveGame" src="https://github.com/user-attachments/assets/5018a493-5a3f-400a-8ef9-f75b26152673" />
 
 ### Result Screen
-![OrdSpel Result Screenshot Placeholder](docs/images/placeholder-result.png)
+<img width="2029" height="1342" alt="GameResult" src="https://github.com/user-attachments/assets/eaf63bec-4562-4a8c-8404-12db24ee74cc" />
+
 
 ## 🏗️ Architecture
 OrdSpel follows a layered architecture to keep responsibilities isolated and maintainable.
