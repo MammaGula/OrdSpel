@@ -20,22 +20,6 @@ OrdSpel is a two-player category-based word game where users create or join a se
 
 ---
 
-## ✨ Table of Contents
-- [Project Overview](#project-overview)
-- [Highlights](#highlights)
-- [Screenshots](#screenshots)
-- [Architecture](#architecture)
-- [Tech Stack](#tech-stack)
-- [Solution Structure](#solution-structure)
-- [Gameplay Rules](#gameplay-rules)
-- [Getting Started](#getting-started)
-- [Configuration](#configuration)
-- [Database and Seed Data](#database-and-seed-data)
-- [API Overview](#api-overview)
-- [Testing](#testing)
-- [Roadmap](#roadmap)
-- [Portfolio Notes](#portfolio-notes)
-
 ## 🚀 Project Overview
 OrdSpel is a full-stack .NET project designed around a layered architecture with clear separation between UI, API, business logic, data access, and shared contracts.
 
