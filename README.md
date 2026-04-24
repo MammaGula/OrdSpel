@@ -255,7 +255,7 @@ All active game state is stored in the database, making session recovery and syn
 
 ## 🧪 Testing
 The solution includes several test projects for different layers of the system:
-- **OrdSpel.BLL.Test** – unit tests for business logic
+- **OrdSpel.BLL.Test** – unit tests for business logic 
 - **OrdSpel.API.Test** – integration tests for API endpoints
 - **OrdSpel.DAL.Test.xUnit** – data access and repository tests
 - **OrdSpel.DAL.Test.BDD** – BDD-oriented tests
